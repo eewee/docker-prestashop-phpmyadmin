@@ -1,0 +1,6 @@
+{
+  "name": "Docker-prestashop-phpmyadmin",
+  "tagline": "Docker install : PrestaShop and PhpMyAdmin",
+  "body": "### Docker install PrestaShop and PhpMyAdmin :\r\nInstaller via Docker, PrestaShop 1.7 avec PhpMyAdmin.\r\n\r\nEn 4 à 5 lignes de commande on va :\r\n- Installer PrestaShop 1.7\r\n- Installer et le lier à un PhpMyAdmin\r\n- Copier les sources du PrestaShop (themes, modules et/ou override) en local",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
