@@ -1,9 +1,17 @@
 # docker-prestashop-phpmyadmin
 Docker install : PrestaShop and PhpMyAdmin
 
-Default : 
-- Install PrestaShop 1.7
-- Install PhpMyAdmin
-- Copy source /themes to local
-- Copy source /modules to local
-- Copy source /override to local
+Install :
+- Open terminal
+- ```docker-compose up```
+
+URL PrestaShop :
+- front [localhost:8001](localhost:8001)
+- back [localhost:8001/admin-dev](localhost:8001/admin-dev)
+  - email : demo@prestashop.com
+  - pwd : prestashop_demo
+
+URL PhpMyAdmin :
+- [localhost:8080](localhost:8080)
+  - login : prestashop
+  - pwd : prestashop

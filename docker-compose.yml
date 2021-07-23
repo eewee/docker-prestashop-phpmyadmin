@@ -8,7 +8,7 @@ volumes:
 services:
     mysql:
         image: mysql:5
-        container_name: ps_mysql
+        container_name: ps_mysql_eewee
         ports:
             - "3306"
         volumes:
@@ -24,7 +24,7 @@ services:
         depends_on:
             - mysql
         image: phpmyadmin/phpmyadmin:latest
-        container_name: ps_phpmyadmin
+        container_name: ps_phpmyadmin_eewee
         restart: always
         environment:
             PMA_HOST: mysql
@@ -36,7 +36,7 @@ services:
 
     prestashop-git:
         build: .docker
-        container_name: ps_prestashop
+        container_name: ps_prestashop_eewee
         environment:
             DISABLE_MAKE: ${DISABLE_MAKE:-0}
             PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-1}
