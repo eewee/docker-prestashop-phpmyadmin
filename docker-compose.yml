@@ -1,60 +1,61 @@
-version: '2.1'
-
-volumes:
-    db-data:
-    vendor:
-    var:
-
+version: "3.9"
 services:
-    mysql:
-        image: mysql:5
-        container_name: ps_mysql_eewee
-        ports:
-            - "3306"
-        volumes:
-            - db-data:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: prestashop
-            MYSQL_DATABASE: prestashop
-        restart: always
-        networks:
-            - ps
+  # SOURCE : https://hub.docker.com/r/prestashop/prestashop/
+  prestashop:
+    image: prestashop/prestashop:1.7-7.3-apache
+    restart: always
+    networks:
+      - prestashop
+    ports:
+      - 8080:80
+    links:
+      - mariadb:mariadb
+    depends_on:
+      - mariadb
+    volumes:
+      - ./:/var/www/html
+      - ./modules:/var/www/html/modules
+      - ./themes:/var/www/html/themes
+      - ./override:/var/www/html/override
+    environment:
+      - PS_DEV_MODE=1
+      - PS_INSTALL_AUTO=0
+      - DB_NAME=prestashop
+      - DB_SERVER=mariadb
+      - DB_USER=root
+      - DB_PASSWD=mycustompassword
 
-    phpmyadmin:
-        depends_on:
-            - mysql
-        image: phpmyadmin/phpmyadmin:latest
-        container_name: ps_phpmyadmin_eewee
-        restart: always
-        environment:
-            PMA_HOST: mysql
-            MYSQL_ROOT_PASSWORD: password
-        ports:
-            - "8080:80"
-        networks:
-            - ps
+  # SOURCE : https://hub.docker.com/_/mariadb
+  mariadb:
+    image: mariadb
+    restart: always
+    networks:
+      - prestashop
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=prestashop
+      - MYSQL_ROOT_PASSWORD=mycustompassword
 
-    prestashop-git:
-        build: .docker
-        container_name: ps_prestashop_eewee
-        environment:
-            DISABLE_MAKE: ${DISABLE_MAKE:-0}
-            PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-1}
-            DB_PASSWD: ${DB_PASSWD:-prestashop}
-            DB_NAME: ${DB_NAME:-prestashop}
-            DB_SERVER: ${DB_SERVER:-mysql}
-            PS_DOMAIN: ${PS_DOMAIN:-localhost:8001}
-            PS_FOLDER_INSTALL: ${PS_FOLDER_INSTALL:-install-dev}
-            PS_FOLDER_ADMIN: ${PS_FOLDER_ADMIN:-admin-dev}
-        command: ["/tmp/wait-for-it.sh", "--timeout=60", "--strict", "mysql:3306", "--", "/tmp/docker_run_git.sh"]
-        ports:
-            - "8001:80"
-        volumes:
-            - ./:/var/www/html/:delegated
-            - vendor:/var/www/html/vendor
-            - var:/var/www/html/var
-        networks:
-            - ps
+  # SOURCE : https://hub.docker.com/_/phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    networks:
+      - prestashop
+    links:
+      - mariadb:mariadb
+    ports:
+      - 8081:80
+    depends_on:
+      - mariadb
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_USER=root
+      - PMA_PASSWORD=mycustompassword
 
 networks:
-    ps:
+  prestashop:
+
+volumes:
+  db_data:
