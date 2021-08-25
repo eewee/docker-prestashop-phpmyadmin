@@ -6,12 +6,13 @@ Install :
 - ```docker-compose up```
 
 URL PrestaShop :
-- front [localhost:8001](localhost:8001)
-- back [localhost:8001/admin-dev](localhost:8001/admin-dev)
-  - email : demo@prestashop.com
-  - pwd : prestashop_demo
+- front [localhost:8080](localhost:8081)
+- host : mariadb
+- db : prestashop
+- user : root
+- password : mycustompassword
 
 URL PhpMyAdmin :
-- [localhost:8080](localhost:8080)
-  - login : prestashop
-  - pwd : prestashop
+- [localhost:8081](localhost:8081)
+  - login : root
+  - pwd : mycustompassword
