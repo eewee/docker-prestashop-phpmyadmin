@@ -1,5 +1,5 @@
 # docker-prestashop-phpmyadmin
-Docker install : PrestaShop and PhpMyAdmin
+Docker install : [PrestaShop](https://hub.docker.com/r/prestashop/prestashop/) and [PhpMyAdmin](https://hub.docker.com/_/phpmyadmin)
 
 Install :
 - Open terminal
