@@ -6,7 +6,7 @@ Install :
 - ```docker-compose up```
 
 URL PrestaShop :
-- front [localhost:8080](http://localhost:8081)
+- front [localhost:8080](http://localhost:8080)
 - host : mariadb
 - db : prestashop
 - user : root
